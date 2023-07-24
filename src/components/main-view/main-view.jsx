@@ -1,24 +1,43 @@
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://sandoval-flixdb-eadce14b2925.herokuapp.com/movies")
+    if (!token) {
+      return;
+    }
+
+    fetch("https://sandoval-flixdb-eadce14b2925.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((movie) => {
           return {
             id: movie._id,
-            image: movie.ImagePath,
-            title: movie.Title,
-            description: movie.Description,
-            genre: movie.Genre,
-            director: movie.Director,
+            ImagePath: movie.ImagePath,
+            Title: movie.Title,
+            Description: movie.Description,
+            Director: {
+              Bio: movie.Director.Bio,
+              Birth: movie.Director.Birth,
+              Death: movie.Director.Death,
+              Name: movie.Director.Name,
+            },
+            Genre: {
+              Name: movie.Genre.Name,
+              Description: movie.Genre.Description,
+            },
           };
         });
 
@@ -27,7 +46,39 @@ export const MainView = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [token]);
+
+  if (!user) {
+    return (
+      <>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
+        or
+        <SignupView />
+      </>
+    );
+  }
+
+  if (selectedMovie) {
+    return (
+      <>
+        <button
+          onClick={() => {
+            setUser(null);
+          }}>
+          Logout
+        </button>
+        <MovieView
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+        />
+      </>
+    );
+  }
 
   if (selectedMovie) {
     return (
@@ -39,11 +90,27 @@ export const MainView = () => {
   }
 
   if (movies.length === 0) {
-    return <div>The list is empty!</div>;
+    return (
+      <>
+        <button
+          onClick={() => {
+            setUser(null);
+          }}>
+          Logout
+        </button>
+        <div>The list is empty!</div>
+      </>
+    );
   }
 
   return (
     <div>
+      <button
+        onClick={() => {
+          setUser(null);
+        }}>
+        Logout
+      </button>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
