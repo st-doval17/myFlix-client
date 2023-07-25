@@ -69,6 +69,8 @@ export const MainView = () => {
         <button
           onClick={() => {
             setUser(null);
+            setToken(null);
+            localStorage.clear();
           }}>
           Logout
         </button>
@@ -80,21 +82,14 @@ export const MainView = () => {
     );
   }
 
-  if (selectedMovie) {
-    return (
-      <MovieView
-        movie={selectedMovie}
-        onBackClick={() => setSelectedMovie(null)}
-      />
-    );
-  }
-
   if (movies.length === 0) {
     return (
       <>
         <button
           onClick={() => {
             setUser(null);
+            setToken(null);
+            localStorage.clear();
           }}>
           Logout
         </button>
@@ -108,6 +103,8 @@ export const MainView = () => {
       <button
         onClick={() => {
           setUser(null);
+          setToken(null);
+          localStorage.clear();
         }}>
         Logout
       </button>
