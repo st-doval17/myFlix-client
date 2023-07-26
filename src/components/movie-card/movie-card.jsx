@@ -1,13 +1,18 @@
 import PropTypes from "prop-types";
+import { Button, Card } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div
-      onClick={() => {
-        onMovieClick(movie);
-      }}>
-      {movie.Title}
-    </div>
+    <Card className="h-100">
+      <Card.Img variant="top" src={movie.ImagePath} />
+      <Card.Body class="p-3 mb-2 bg-white text-dark">
+        <Card.Title>{movie.Title}</Card.Title>
+        <Card.Text>{movie.director}</Card.Text>
+        <Button onClick={() => onMovieClick(movie)} variant="primary">
+          Open
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
