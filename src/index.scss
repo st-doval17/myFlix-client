@@ -1,5 +1,12 @@
-$color: steelblue;
+$primary: maroon;
+$body-bg: #2e2d2c;
 
-.my-flix {
-  color: $color;
+@import "~bootstrap/scss/bootstrap.scss";
+
+.form-control {
+  background-color: white;
+}
+
+.form-control:focus {
+  background-color: white;
 }
