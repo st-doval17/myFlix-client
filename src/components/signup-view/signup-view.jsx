@@ -26,10 +26,8 @@ export const SignupView = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Signup successful");
-        <Redirect
-          to={"https://sandoval-flixdb-eadce14b2925.herokuapp.com/movies"}
-        />;
+        alert("Sign-up successful");
+        window.location.replace("/login");
       } else {
         alert("Signup failed");
       }
