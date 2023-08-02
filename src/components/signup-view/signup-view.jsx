@@ -29,7 +29,7 @@ export const SignupView = () => {
         alert("Sign-up successful");
         window.location.replace("/login");
       } else {
-        alert("Signup failed");
+        alert("Sign-up failed");
       }
     });
   };

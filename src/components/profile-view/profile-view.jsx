@@ -39,7 +39,7 @@ export const ProfileView = ({
     };
 
     fetch(
-      "https://sandoval-flixdb-eadce14b2925.herokuapp.com/users/${user.userName}",
+      `https://sandoval-flixdb-eadce14b2925.herokuapp.com/users/${user.Username}`,
       {
         method: "PUT",
         body: JSON.stringify(data),
@@ -70,7 +70,7 @@ export const ProfileView = ({
 
   const deleteUser = () => {
     fetch(
-      "https://sandoval-flixdb-eadce14b2925.herokuapp.com/users/${user.userName}",
+      `https://sandoval-flixdb-eadce14b2925.herokuapp.com/users/${user.Username}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
