@@ -38,6 +38,8 @@ export const ProfileView = ({
       Birthday: birthday,
     };
 
+    console.log("Submitting changes with data:", data);
+
     fetch(
       `https://sandoval-flixdb-eadce14b2925.herokuapp.com/users/${user.Username}`,
       {
