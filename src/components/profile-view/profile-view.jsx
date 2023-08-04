@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MovieCard } from "../movie-card/movie-card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -156,7 +155,9 @@ export const ProfileView = ({
           <div>
             <Button
               onClick={() => {
-                if (confirm("Are you sure you want to delete your account?")) {
+                if (
+                  confirm("Wait! Are you sure you want to delete your account?")
+                ) {
                   deleteUser();
                 }
               }}
@@ -171,20 +172,25 @@ export const ProfileView = ({
         <h5 className="text-white">Your Favorites:</h5>
       </Col>
 
-      {favoriteMoviesChunks.map((chunk, index) => (
-        <Container
-          key={index}
-          className="d-flex justify-content-center mb-3"
-          style={{ border: "2px solid #ddd" }}>
-          <Row>
-            {chunk.map((movie) => (
-              <Col key={movie._id} md={4} lg={3} style={{ marginTop: 20 }}>
-                <MovieCard movie={movie} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      ))}
+      <Container fluid>
+        <Row>
+          {favoriteMovies.map((movie) => (
+            <Col key={movie._id} md={4} lg={3} style={{ marginTop: 20 }}>
+              <a href={`/movies/${encodeURIComponent(movie._id)}`}>
+                <img
+                  src={movie.ImagePath}
+                  alt={movie.Title}
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    cursor: "pointer",
+                  }}
+                />
+              </a>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </>
   );
 };
