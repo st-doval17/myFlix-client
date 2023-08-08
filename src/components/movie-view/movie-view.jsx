@@ -1,34 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React from "react";
 import { Button } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
 import "./movie-view.scss";
 
-export const MovieView = ({ movies, user, token, updateUser }) => {
+export const MovieView = ({ movies, user, token, setFavorites, favorites }) => {
   const { movieId } = useParams();
   const movie = movies.find((movie) => movie._id === movieId);
-
-  const [isFavorite, setIsFavorite] = useState(
-    user && user.FavoriteMovies.includes(movieId)
-  );
-
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  useEffect(() => {
-    if (user && user.Username) {
-      fetch(
-        `https://sandoval-flixdb-eadce14b2925.herokuapp.com/favoriteMovies/${user.Username}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setFavoriteMovies(data);
-        })
-        .catch((error) => {
-          console.error("API error:", error);
-        });
-    }
-  }, [user, token]);
+  const isFavorite = favorites && favorites.find((fav) => fav === movieId);
 
   const addFavorite = () => {
     fetch(
@@ -46,13 +24,10 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
           return false;
         }
       })
-      .then((updatedUser) => {
-        console.log("API response:", updatedUser);
-        if (updatedUser) {
-          alert("Added to your favorites!");
-          setIsFavorite(true);
-          updateUser(updatedUser);
-        }
+      .then((favoriteMovies) => {
+        alert("Added to your favorites!");
+        console.log(favoriteMovies);
+        setFavorites(favoriteMovies);
       })
       .catch((e) => {
         alert(e);
@@ -75,12 +50,10 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
           return false;
         }
       })
-      .then((updatedUser) => {
-        if (updatedUser) {
-          alert("Removed from your favorites");
-          setIsFavorite(false);
-          updateUser(updatedUser);
-        }
+      .then((favoriteMovies) => {
+        alert("Removed from your favorites");
+        console.log(favoriteMovies);
+        setFavorites(favoriteMovies);
       })
       .catch((e) => {
         alert(e);

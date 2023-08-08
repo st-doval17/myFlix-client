@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
-import { Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -14,6 +14,7 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken || null);
   const [movies, setMovies] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   const updateUser = (user) => {
     setUser(user);
@@ -24,6 +25,19 @@ export const MainView = () => {
     if (!token) {
       return;
     }
+
+    fetch(
+      "https://sandoval-flixdb-eadce14b2925.herokuapp.com/favoriteMovies/" +
+        user.Username,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((movs) => movs.json())
+      .then((movs) => {
+        console.log(movs);
+        setFavorites(movs);
+      });
 
     fetch("https://sandoval-flixdb-eadce14b2925.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
@@ -138,6 +152,8 @@ export const MainView = () => {
                       user={user}
                       token={token}
                       updateUser={updateUser}
+                      favorites={favorites}
+                      setFavorites={setFavorites}
                     />
                   </Col>
                 )}
