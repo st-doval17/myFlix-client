@@ -93,6 +93,7 @@ export const MainView = () => {
                     user={user}
                     token={token}
                     movies={movies}
+                    favoriteMovies={favorites}
                     updateUser={updateUser}
                     onLoggedOut={() => {
                       setUser(null);

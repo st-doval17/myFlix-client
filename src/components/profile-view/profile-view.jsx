@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 import { MovieCard } from "../movie-card/movie-card";
@@ -12,6 +12,7 @@ export const ProfileView = ({
   user,
   token,
   movies,
+  favoriteMovies,
   updateUser,
   onLoggedOut,
 }) => {
@@ -20,9 +21,9 @@ export const ProfileView = ({
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  const favoriteMovies = movies.filter((movie) =>
-    user.FavoriteMovies.includes(movie._id)
-  );
+  const favMovies = movies
+    ? movies.filter((movie) => favoriteMovies.includes(movie._id))
+    : [];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -171,7 +172,7 @@ export const ProfileView = ({
 
       <Container fluid>
         <Row>
-          {favoriteMovies.map((movie) => (
+          {favMovies.map((movie) => (
             <Col key={movie._id} md={4} lg={3} style={{ marginTop: 20 }}>
               <MovieCard movie={movie} />
             </Col>
