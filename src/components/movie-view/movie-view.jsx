@@ -11,11 +11,24 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
     user && user.FavoriteMovies.includes(movieId)
   );
 
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   useEffect(() => {
     if (user && user.Username) {
-      setIsFavorite(user.FavoriteMovies.includes(movieId));
+      fetch(
+        `https://sandoval-flixdb-eadce14b2925.herokuapp.com/favoriteMovies/${user.Username}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setFavoriteMovies(data);
+        })
+        .catch((error) => {
+          console.error("API error:", error);
+        });
     }
-  }, [user, movieId]);
+  }, [user, token]);
 
   const addFavorite = () => {
     fetch(

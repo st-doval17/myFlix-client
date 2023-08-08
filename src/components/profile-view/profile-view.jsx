@@ -6,6 +6,8 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
+import { MovieCard } from "../movie-card/movie-card";
+
 export const ProfileView = ({
   user,
   token,
@@ -21,11 +23,6 @@ export const ProfileView = ({
   const favoriteMovies = movies.filter((movie) =>
     user.FavoriteMovies.includes(movie._id)
   );
-
-  const favoriteMoviesChunks = [];
-  for (let i = 0; i < favoriteMovies.length; i += 5) {
-    favoriteMoviesChunks.push(favoriteMovies.slice(i, i + 4));
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -176,17 +173,7 @@ export const ProfileView = ({
         <Row>
           {favoriteMovies.map((movie) => (
             <Col key={movie._id} md={4} lg={3} style={{ marginTop: 20 }}>
-              <a href={`/movies/${encodeURIComponent(movie._id)}`}>
-                <img
-                  src={movie.ImagePath}
-                  alt={movie.Title}
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    cursor: "pointer",
-                  }}
-                />
-              </a>
+              <MovieCard movie={movie} />
             </Col>
           ))}
         </Row>
