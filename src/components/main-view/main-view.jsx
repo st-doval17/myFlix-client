@@ -15,6 +15,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken || null);
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   const updateUser = (user) => {
     setUser(user);
@@ -79,6 +80,8 @@ export const MainView = () => {
           setToken(null);
           localStorage.clear();
         }}
+        movies={movies}
+        setFilteredMovies={setFilteredMovies}
       />
       <Row className="justify-content-md-center">
         <Routes>
@@ -149,7 +152,9 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView
-                      movies={movies}
+                      movies={
+                        filteredMovies.length > 0 ? filteredMovies : movies
+                      }
                       user={user}
                       token={token}
                       updateUser={updateUser}
@@ -171,11 +176,17 @@ export const MainView = () => {
                   <Col className="text-white">The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-5" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
-                      </Col>
-                    ))}
+                    {filteredMovies.length > 0
+                      ? filteredMovies.map((movie) => (
+                          <Col className="mb-5" key={movie._id} md={3}>
+                            <MovieCard movie={movie} />
+                          </Col>
+                        ))
+                      : movies.map((movie) => (
+                          <Col className="mb-5" key={movie._id} md={3}>
+                            <MovieCard movie={movie} />
+                          </Col>
+                        ))}
                   </>
                 )}
               </>

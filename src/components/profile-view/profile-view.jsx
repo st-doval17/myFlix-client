@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import "./profile-view.scss";
 
 import { MovieCard } from "../movie-card/movie-card";
 
@@ -16,8 +17,6 @@ export const ProfileView = ({
   updateUser,
   onLoggedOut,
 }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
@@ -95,26 +94,7 @@ export const ProfileView = ({
           <Card.Body className="p-3 bg-white text-dark">
             <Card.Title>Update Info:</Card.Title>
 
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Password:</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+            <Form onSubmit={handleSubmit} className="update-info">
               <Form.Group>
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
@@ -124,7 +104,7 @@ export const ProfileView = ({
                   required
                 />
               </Form.Group>
-
+              <br></br>
               <Form.Group>
                 <Form.Label>Birthday:</Form.Label>
                 <Form.Control
@@ -146,7 +126,9 @@ export const ProfileView = ({
         <Card.Body className="p-3 bg-white text-dark">
           <Card.Title>User Info:</Card.Title>
           <center>
-            <p>Username: {user.Username}</p>
+            <p>
+              <b>Username: {user.Username}</b>
+            </p>
             <p>Email: {user.Email}</p>
             <p>Birthday: {new Date(user.Birthday).toLocaleDateString()}</p>
           </center>

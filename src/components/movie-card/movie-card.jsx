@@ -15,9 +15,9 @@ export const MovieCard = ({ movie, onAddFavorite }) => {
       <Card.Img className="flex-grow-1" variant="top" src={movie.ImagePath} />
       <Card.Body className="p-3 bg-white text-dark">
         <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>{movie.Director.Name}</Card.Text>
+        <Card.Text>{movie.Description}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-          <Button>Open</Button>
+          <Button>View</Button>
         </Link>
       </Card.Body>
     </Card>
