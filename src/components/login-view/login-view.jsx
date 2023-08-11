@@ -40,7 +40,7 @@ export const LoginView = ({ onLoggedIn }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formUsername">
-        <Form.Label class="text-white bg-dark">Username:</Form.Label>
+        <Form.Label className="text-white bg-dark">Username:</Form.Label>
         <Form.Control
           type="text"
           value={username}
@@ -50,7 +50,7 @@ export const LoginView = ({ onLoggedIn }) => {
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
-        <Form.Label class="text-white bg-dark">Password:</Form.Label>
+        <Form.Label className="text-white bg-dark">Password:</Form.Label>
         <Form.Control
           type="password"
           value={password}
@@ -59,7 +59,7 @@ export const LoginView = ({ onLoggedIn }) => {
           minLength="4"
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button style={{ marginTop: 12 }} variant="primary" type="submit">
         Login
       </Button>
     </Form>

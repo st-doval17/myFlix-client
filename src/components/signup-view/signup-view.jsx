@@ -26,10 +26,10 @@ export const SignupView = () => {
       },
     }).then((response) => {
       if (response.ok) {
-        alert("Signup successful");
-        window.location.reload();
+        alert("Sign-up successful");
+        window.location.replace("/login");
       } else {
-        alert("Signup failed");
+        alert("Sign-up failed");
       }
     });
   };
@@ -37,7 +37,7 @@ export const SignupView = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formUsername">
-        <Form.Label class="text-white bg-dark">Username:</Form.Label>
+        <Form.Label className="text-white bg-dark">Username:</Form.Label>
         <Form.Control
           type="text"
           value={username}
@@ -47,7 +47,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
-        <Form.Label class="text-white bg-dark">Password:</Form.Label>
+        <Form.Label className="text-white bg-dark">Password:</Form.Label>
         <Form.Control
           type="password"
           value={password}
@@ -57,7 +57,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formEmail">
-        <Form.Label class="text-white bg-dark">Email:</Form.Label>
+        <Form.Label className="text-white bg-dark">Email:</Form.Label>
         <Form.Control
           type="email"
           value={email}
@@ -66,7 +66,7 @@ export const SignupView = () => {
         />
       </Form.Group>
       <Form.Group controlId="formBirthday">
-        <Form.Label class="text-white bg-dark">Birthday:</Form.Label>
+        <Form.Label className="text-white bg-dark">Birthday:</Form.Label>
         <Form.Control
           type="date"
           value={birthday}
@@ -74,7 +74,7 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button style={{ marginTop: 12 }} variant="primary" type="submit">
         Sign-up
       </Button>
     </Form>

@@ -1,0 +1,36 @@
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.react-autosuggest__suggestions-container {
+  background-color: maroon; /* Change to your desired background color */
+  color: white; /* Text color for suggestions */
+  border-radius: 4px;
+  position: absolute;
+  top: 100%;
+  width: 25%;
+  z-index: 2;
+}
+
+/* Style for suggestion items */
+.react-autosuggest__suggestion {
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #454d55; /* Background color on hover */
+  }
+}
+
+.btn-sm {
+  margin-left: 12px;
+}
+
+input {
+  border-radius: 8px;
+}
+
+.navbar-dark {
+  margin-bottom: 34px;
+  margin-top: 24px;
+}
