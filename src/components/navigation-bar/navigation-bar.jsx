@@ -78,7 +78,7 @@ export const NavigationBar = ({
                   Login
                 </Nav.Link>
                 <Nav.Link as={Link} to="/signup">
-                  Signup
+                  Sign-up!
                 </Nav.Link>
               </>
             )}
